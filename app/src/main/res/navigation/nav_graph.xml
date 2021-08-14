@@ -27,5 +27,9 @@
         android:id="@+id/detailFragment"
         android:name="com.example.bookmarkapp.ui.fragment.detail.DetailFragment"
         android:label="DetailFragment"
-        tools:layout="@layout/fragment_detail"/>
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="product"
+            app:argType="com.example.bookmarkapp.data.remote.response.Product"/>
+    </fragment>
 </navigation>

@@ -1,6 +1,7 @@
 package com.example.bookmarkapp.data.remote.response
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Product(
     @SerializedName("description")
@@ -13,4 +14,4 @@ data class Product(
     val rate: Double,
     @SerializedName("thumbnail")
     val thumbnail: String
-)
+): Serializable

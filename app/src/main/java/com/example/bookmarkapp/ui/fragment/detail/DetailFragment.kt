@@ -1,5 +1,7 @@
 package com.example.bookmarkapp.ui.fragment.detail
 
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.bookmarkapp.R
 import com.example.bookmarkapp.base.BaseFragment
 import com.example.bookmarkapp.databinding.FragmentDetailBinding
@@ -11,7 +13,12 @@ class DetailFragment: BaseFragment<FragmentDetailBinding, DetailViewModel>() {
     override val viewModelClass: KClass<DetailViewModel>
         get() = DetailViewModel::class
 
-    override fun initView() {
+    private val safeArgs: DetailFragmentArgs by navArgs()
 
+    override fun initView() {
+        viewDataBinding.product = safeArgs.product
+        viewDataBinding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 }

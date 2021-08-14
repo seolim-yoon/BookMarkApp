@@ -9,7 +9,7 @@ interface RetrofitService {
 
     @GET("App/json/{page}.json")
     fun getProductList(
-        @Path("page") page: String
+        @Path("page") page: Int
     ): Single<ProductResult>
 
 }
