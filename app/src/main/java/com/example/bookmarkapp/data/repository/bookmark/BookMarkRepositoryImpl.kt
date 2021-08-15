@@ -7,17 +7,13 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class BookMarkRepositoryImpl @Inject constructor(private val bookMarkDao: BookMarkDao): BookMarkRepository {
-    override fun insertBookMark(bookMark: BookMark): Completable = bookMarkDao.insertBookMark(bookMark)
+    override fun getBookMarkByTimeAsc(): Single<List<BookMark>> = bookMarkDao.getBookMarkByTimeAsc(true)
 
-    override fun deleteBookMark(bookMark: BookMark): Completable = bookMarkDao.deleteBookMark(bookMark)
+    override fun getBookMarkByTimeDesc(): Single<List<BookMark>> = bookMarkDao.getBookMarkByTimeDesc(true)
 
-    override fun getBookMarkByTimeAsc(): Single<List<BookMark>> = bookMarkDao.getBookMarkByTimeAsc()
+    override fun getBookMarkByRateAsc(): Single<List<BookMark>> = bookMarkDao.getBookMarkByRateAsc(true)
 
-    override fun getBookMarkByTimeDesc(): Single<List<BookMark>> = bookMarkDao.getBookMarkByTimeDesc()
+    override fun getBookMarkByRateDesc(): Single<List<BookMark>> = bookMarkDao.getBookMarkByRateDesc(true)
 
-    override fun getBookMarkByRateAsc(): Single<List<BookMark>> = bookMarkDao.getBookMarkByRateAsc()
-
-    override fun getBookMarkByRateDesc(): Single<List<BookMark>> = bookMarkDao.getBookMarkByRateDesc()
-
-    override fun getBookMarkState(id: Int): Single<Boolean> = bookMarkDao.getBookMarkState(id)
+    override fun updateBookMark(bookMark: BookMark): Completable = bookMarkDao.updateBookMark(bookMark)
 }

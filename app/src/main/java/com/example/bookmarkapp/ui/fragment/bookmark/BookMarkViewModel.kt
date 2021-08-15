@@ -6,16 +6,11 @@ import com.example.bookmarkapp.base.BaseViewModel
 import com.example.bookmarkapp.data.database.entity.BookMark
 import com.example.bookmarkapp.data.repository.bookmark.BookMarkRepository
 import com.example.bookmarkapp.ui.model.Sort
-import com.example.bookmarkapp.util.BookMarkState
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class BookMarkViewModel @Inject constructor(private val bookMarkRepository: BookMarkRepository) : BaseViewModel() {
-    private var _updateBookMark = MutableLiveData<BookMarkState>()
-    val updateBookMark: LiveData<BookMarkState>
-        get() = _updateBookMark
-
     private var _bookMarkList = MutableLiveData<List<BookMark>>()
     val bookMarkList: LiveData<List<BookMark>>
         get() = _bookMarkList
@@ -28,9 +23,7 @@ class BookMarkViewModel @Inject constructor(private val bookMarkRepository: Book
     val selectSortType: LiveData<Sort>
         get() = _selectSortType
 
-
     init {
-        getBookMarkByTimeDesc()
         _sortList.value = listOf(
             Sort(0, "최근 등록 순", true),
             Sort(1, "오래된 순", false),
@@ -38,80 +31,65 @@ class BookMarkViewModel @Inject constructor(private val bookMarkRepository: Book
             Sort(3, "평점 낮은 순", false)
         )
         _selectSortType.value = _sortList.value!![0]
+        updateBookMarkList()
     }
 
-    fun insertBookMark(bookMark: BookMark) = addDisposable(bookMarkRepository.insertBookMark(bookMark)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe {
-            _updateBookMark.value = BookMarkState.INSERT
+    fun updateBookMarkList() {
+        when (_selectSortType.value?.id) {
+            0 -> getBookMarkByTimeDesc()
+            1 -> getBookMarkByTimeAsc()
+            2 -> getBookMarkByRateDesc()
+            3 -> getBookMarkByRateAsc()
         }
-    )
-
-    fun deleteBookMark(bookMark: BookMark) = addDisposable(bookMarkRepository.deleteBookMark(bookMark)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe {
-            _updateBookMark.value = BookMarkState.DELETE
-        }
-    )
-
-    fun getBookMarkState(id: Int) = addDisposable(bookMarkRepository.getBookMarkState(id)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({ state ->
-
-        }, {
-
-        })
-    )
-
-    fun getBookMarkByTimeAsc() = addDisposable(bookMarkRepository.getBookMarkByTimeAsc()
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({ bookMarks ->
-            _bookMarkList.value = bookMarks
-        }, {
-
-        })
-    )
-
-    fun getBookMarkByTimeDesc() = addDisposable(bookMarkRepository.getBookMarkByTimeDesc()
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({ bookMarks ->
-            _bookMarkList.value = bookMarks
-        }, {
-
-        })
-    )
-
-    fun getBookMarkByRateAsc() = addDisposable(bookMarkRepository.getBookMarkByRateAsc()
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({ bookMarks ->
-            _bookMarkList.value = bookMarks
-        }, {
-
-        })
-    )
-
-    fun getBookMarkByRateDesc() = addDisposable(bookMarkRepository.getBookMarkByRateDesc()
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({ bookMarks ->
-            _bookMarkList.value = bookMarks
-        }, {
-
-        })
-    )
-
-    fun setStateNone() {
-        _updateBookMark.value = BookMarkState.NONE
     }
+
+    fun updateBookMark(bookMark: BookMark) = addDisposable(bookMarkRepository.updateBookMark(bookMark)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe ()
+    )
+
+    private fun getBookMarkByTimeAsc() = addDisposable(bookMarkRepository.getBookMarkByTimeAsc()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe({ bookMarks ->
+            _bookMarkList.value = bookMarks
+        }, {
+
+        })
+    )
+
+    private fun getBookMarkByTimeDesc() = addDisposable(bookMarkRepository.getBookMarkByTimeDesc()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe({ bookMarks ->
+            _bookMarkList.value = bookMarks
+        }, {
+
+        })
+    )
+
+    private fun getBookMarkByRateAsc() = addDisposable(bookMarkRepository.getBookMarkByRateAsc()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe({ bookMarks ->
+            _bookMarkList.value = bookMarks
+        }, {
+
+        })
+    )
+
+    private fun getBookMarkByRateDesc() = addDisposable(bookMarkRepository.getBookMarkByRateDesc()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe({ bookMarks ->
+            _bookMarkList.value = bookMarks
+        }, {
+
+        })
+    )
 
     fun setSelectSortType(sort: Sort) {
         _selectSortType.value = sort
-
     }
 }

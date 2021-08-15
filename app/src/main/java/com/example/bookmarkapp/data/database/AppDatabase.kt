@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.bookmarkapp.data.database.dao.BookMarkDao
 import com.example.bookmarkapp.data.database.entity.BookMark
 
-@Database(entities = [BookMark::class], version = 4)
+@Database(entities = [BookMark::class], version = 5)
 abstract class AppDatabase: RoomDatabase() {
     abstract fun bookMarkDao(): BookMarkDao
 

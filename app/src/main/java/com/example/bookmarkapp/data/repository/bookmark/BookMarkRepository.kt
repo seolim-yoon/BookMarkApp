@@ -5,10 +5,6 @@ import io.reactivex.Completable
 import io.reactivex.Single
 
 interface BookMarkRepository {
-    fun insertBookMark(bookMark: BookMark): Completable
-
-    fun deleteBookMark(bookMark: BookMark): Completable
-
     fun getBookMarkByTimeAsc(): Single<List<BookMark>>
 
     fun getBookMarkByTimeDesc(): Single<List<BookMark>>
@@ -17,5 +13,5 @@ interface BookMarkRepository {
 
     fun getBookMarkByRateDesc(): Single<List<BookMark>>
 
-    fun getBookMarkState(id: Int): Single<Boolean>
+    fun updateBookMark(bookMark: BookMark): Completable
 }

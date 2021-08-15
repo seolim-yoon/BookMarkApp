@@ -1,5 +1,6 @@
 package com.example.bookmarkapp.ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
@@ -34,15 +35,15 @@ class ProductPagingAdapter(
 
             binding.ivItemBookmark.setOnClickListener { view ->
                 bookMark.isBookMark = !bookMark.isBookMark
-                bookMarkClick(bookMark)
-
                 when(bookMark.isBookMark) {
                     true -> {
-                        view.setBackgroundResource(R.drawable.baseline_favorite_24)
                         bookMark.time = TimeFormatUtils.dateFormat.format(Date(System.currentTimeMillis()))
                     }
-                    false -> view.setBackgroundResource(R.drawable.baseline_favorite_border_24)
                 }
+                Log.v("seolim", "isBookMark : " + bookMark.isBookMark)
+                bookMarkClick(bookMark)
+                binding.invalidateAll()
+
             }
         }
     }

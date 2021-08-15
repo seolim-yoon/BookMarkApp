@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.example.bookmarkapp.util.BookMarkState"/>
         <variable
             name="bookmark"
             type="com.example.bookmarkapp.data.database.entity.BookMark" />

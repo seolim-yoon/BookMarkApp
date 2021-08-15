@@ -28,10 +28,8 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(bookMark))
         }, { bookMark ->
             // bookmark click
-            when(bookMark.isBookMark) {
-                true -> { bookMarkViewModel.insertBookMark(bookMark) }
-                false -> { bookMarkViewModel.deleteBookMark(bookMark) }
-            }
+            bookMarkViewModel.updateBookMark(bookMark)
+            bookMarkViewModel.updateBookMarkList()
         })
     }
 
