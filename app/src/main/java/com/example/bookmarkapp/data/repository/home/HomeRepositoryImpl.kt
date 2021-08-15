@@ -5,6 +5,6 @@ import com.example.bookmarkapp.data.remote.service.RetrofitService
 import io.reactivex.Single
 import javax.inject.Inject
 
-class HomeRepositoryImpl @Inject constructor(private val retrofitService: RetrofitService): HomeRepository {
+class HomeRepositoryImpl @Inject constructor(private val retrofitService: RetrofitService) : HomeRepository {
     override fun getProductList(page: Int): Single<ProductResult> = retrofitService.getProductList(page)
 }

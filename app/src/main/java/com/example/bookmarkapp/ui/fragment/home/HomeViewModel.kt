@@ -1,7 +1,5 @@
 package com.example.bookmarkapp.ui.fragment.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -11,10 +9,6 @@ import com.example.bookmarkapp.data.repository.home.HomeRepository
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(private val homeRepository: HomeRepository) : BaseViewModel() {
-    private var _liveData = MutableLiveData<Any>()
-    val liveData: LiveData<Any>
-        get() = _liveData
-
     val homePager = Pager(PagingConfig(pageSize = PER_PAGE)) {
         HomePagingSource(homeRepository)
     }.flow.cachedIn(viewModelScope)

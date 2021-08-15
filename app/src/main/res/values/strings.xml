@@ -3,4 +3,6 @@
     <string name="title_home">Home</string>
     <string name="title_bookmark">BookMark</string>
     <string name="title_detail">Detail</string>
+    <string name="sort_time">최근 등록 순</string>
+    <string name="title_sort">정렬</string>
 </resources>

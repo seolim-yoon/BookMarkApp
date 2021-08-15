@@ -29,7 +29,7 @@
         android:label="DetailFragment"
         tools:layout="@layout/fragment_detail">
         <argument
-            android:name="product"
-            app:argType="com.example.bookmarkapp.data.remote.response.Product"/>
+            android:name="bookmark"
+            app:argType="com.example.bookmarkapp.data.database.entity.BookMark"/>
     </fragment>
 </navigation>

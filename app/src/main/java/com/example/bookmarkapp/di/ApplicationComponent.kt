@@ -2,6 +2,7 @@ package com.example.bookmarkapp.di
 
 import android.app.Application
 import com.example.bookmarkapp.BookMarkApplication
+import com.example.bookmarkapp.di.database.DatabaseModule
 import com.example.bookmarkapp.di.network.NetworkModule
 import dagger.BindsInstance
 import dagger.Component
@@ -17,6 +18,7 @@ import javax.inject.Singleton
         ActivityModule::class,
         FragmentModule::class,
         RepositoryModule::class,
+        DatabaseModule::class,
         NetworkModule::class,
         ViewModelModule::class,
     ]

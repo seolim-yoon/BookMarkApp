@@ -1,11 +1,13 @@
 package com.example.bookmarkapp.ui.fragment.home
 
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.bookmarkapp.R
 import com.example.bookmarkapp.base.BaseFragment
 import com.example.bookmarkapp.databinding.FragmentHomeBinding
 import com.example.bookmarkapp.ui.adapter.ProductPagingAdapter
+import com.example.bookmarkapp.ui.fragment.bookmark.BookMarkViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
@@ -16,10 +18,21 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override val viewModelClass: KClass<HomeViewModel>
         get() = HomeViewModel::class
 
+    private val bookMarkViewModel by lazy {
+        ViewModelProvider(requireActivity().viewModelStore, viewModelFactory).get(BookMarkViewModel::class.java)
+    }
+
     private val productAdapter by lazy {
-        ProductPagingAdapter { product ->
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(product))
-        }
+        ProductPagingAdapter ({ bookMark ->
+            // item click
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDetailFragment(bookMark))
+        }, { bookMark ->
+            // bookmark click
+            when(bookMark.isBookMark) {
+                true -> { bookMarkViewModel.insertBookMark(bookMark) }
+                false -> { bookMarkViewModel.deleteBookMark(bookMark) }
+            }
+        })
     }
 
     override fun initView() {

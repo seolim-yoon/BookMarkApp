@@ -16,7 +16,7 @@ class DetailFragment: BaseFragment<FragmentDetailBinding, DetailViewModel>() {
     private val safeArgs: DetailFragmentArgs by navArgs()
 
     override fun initView() {
-        viewDataBinding.product = safeArgs.product
+        viewDataBinding.bookmark = safeArgs.bookmark
         viewDataBinding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
