@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                iconImageUrl="@{@drawable/baseline_star_rate_24}"
+                android:src="@drawable/baseline_star_rate_24"
                 app:layout_constraintTop_toBottomOf="@id/tv_item_title"
                 app:layout_constraintStart_toEndOf="@id/iv_item_img"
                 app:layout_constraintBottom_toTopOf="@id/tv_item_time"
@@ -87,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
-                iconImageUrl="@{bookmark.bookMark ? @drawable/baseline_favorite_24 : @drawable/baseline_favorite_border_24}"
+                android:src="@{bookmark.bookMark ? @drawable/baseline_favorite_24 : @drawable/baseline_favorite_border_24}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/iv_item_img"
                 app:layout_constraintBottom_toBottomOf="@id/iv_item_img"/>

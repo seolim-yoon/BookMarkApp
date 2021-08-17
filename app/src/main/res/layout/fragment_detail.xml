@@ -56,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            iconImageUrl="@{bookmark.isBookMark ? @drawable/baseline_favorite_24 : @drawable/baseline_favorite_border_24}"
+            android:src="@{bookmark.isBookMark ? @drawable/baseline_favorite_24 : @drawable/baseline_favorite_border_24}"
             app:layout_constraintTop_toTopOf="@id/iv_product_img"
             app:layout_constraintEnd_toEndOf="@id/iv_product_img"/>
 

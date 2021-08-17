@@ -26,13 +26,4 @@ object ImageViewBindingAdapter {
             .timeout(2000)
             .into(ivThumbnail)
     }
-
-    @BindingAdapter("iconImageUrl")
-    @JvmStatic
-    fun loadIconImage(ivIcon: ImageView, drawable: Drawable) {
-        Glide.with(ivIcon.context)
-            .load(drawable)
-            .centerInside()
-            .into(ivIcon)
-    }
 }
