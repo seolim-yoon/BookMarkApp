@@ -43,11 +43,20 @@ class BookMarkViewModel @Inject constructor(private val bookMarkRepository: Book
         }
     }
 
+    // 하트 표시 누를 때 마다 isBookMark 상태 DB에 업데이트
     fun updateBookMark(bookMark: BookMark) = addDisposable(bookMarkRepository.updateBookMark(bookMark)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe ()
+        .subscribe {
+            updateBookMarkList()
+        }
     )
+
+    // DetailFragment에서 하트 표시 클릭 시 isBookMark 상태 DB에 업데이트
+    fun clickBookMark(bookMark: BookMark) {
+        bookMark.isBookMark = !bookMark.isBookMark
+        updateBookMark(bookMark)
+    }
 
     private fun getBookMarkByTimeAsc() = addDisposable(bookMarkRepository.getBookMarkByTimeAsc()
         .subscribeOn(Schedulers.io())
@@ -89,6 +98,7 @@ class BookMarkViewModel @Inject constructor(private val bookMarkRepository: Book
         })
     )
 
+    // 정렬 타입 선택 시
     fun setSelectSortType(sort: Sort) {
         _selectSortType.value = sort
     }

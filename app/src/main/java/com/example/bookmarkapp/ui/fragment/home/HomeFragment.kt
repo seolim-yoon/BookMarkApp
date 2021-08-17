@@ -29,7 +29,6 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         }, { bookMark ->
             // bookmark click
             bookMarkViewModel.updateBookMark(bookMark)
-            bookMarkViewModel.updateBookMarkList()
         })
     }
 

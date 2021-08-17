@@ -39,7 +39,7 @@ class SortListAdapter(
                 oldItem == newItem
 
             override fun areItemsTheSame(oldItem: Sort, newItem: Sort) =
-                oldItem.check == newItem.check
+                oldItem.id == newItem.id
         }
     }
 }

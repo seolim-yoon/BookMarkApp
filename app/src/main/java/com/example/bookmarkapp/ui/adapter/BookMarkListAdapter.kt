@@ -1,30 +1,31 @@
 package com.example.bookmarkapp.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bookmarkapp.R
 import com.example.bookmarkapp.data.database.entity.BookMark
 import com.example.bookmarkapp.databinding.ItemBookmarkListBinding
-import com.example.bookmarkapp.util.TimeFormatUtils
+import com.example.bookmarkapp.util.FormatUtils
 import java.util.*
 
 class BookMarkListAdapter(
     private val bookMarkItemClick: (BookMark) -> Unit,
     private val bookMarkClick: (BookMark) -> Unit
-) : ListAdapter<BookMark, BookMarkListAdapter.ProductListViewHolder>(diffUtil) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductListViewHolder
-            = ProductListViewHolder(ItemBookmarkListBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+) : ListAdapter<BookMark, BookMarkListAdapter.BookMarkListViewHolder>(diffUtil) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookMarkListViewHolder
+            = BookMarkListViewHolder(ItemBookmarkListBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
-    override fun onBindViewHolder(holder: ProductListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BookMarkListViewHolder, position: Int) {
         holder.bind(currentList[position])
     }
 
-    inner class ProductListViewHolder(private val binding: ItemBookmarkListBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class BookMarkListViewHolder(private val binding: ItemBookmarkListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(bookMark: BookMark) {
             binding.bookmark = bookMark
+            binding.tvItemTime.visibility = View.VISIBLE
 
             itemView.setOnClickListener {
                 bookMarkItemClick(bookMark)
@@ -32,11 +33,10 @@ class BookMarkListAdapter(
 
             binding.ivItemBookmark.setOnClickListener { view ->
                 bookMark.isBookMark = !bookMark.isBookMark
-                when(bookMark.isBookMark) {
-                    true -> {
-                        bookMark.time = TimeFormatUtils.dateFormat.format(Date(System.currentTimeMillis()))
-                    }
-                }
+
+                if(bookMark.isBookMark)
+                    bookMark.time = FormatUtils.dateFormat.format(Date(System.currentTimeMillis()))
+
                 bookMarkClick(bookMark)
                 binding.invalidateAll()
             }

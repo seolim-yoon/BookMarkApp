@@ -14,6 +14,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(private val homeRepository: HomeRepository) : BaseViewModel() {
+    // Paging 사용하여 Room에 저장된 리스트 불러옴
     val homePager = Pager(PagingConfig(pageSize = PER_PAGE)) {
         homeRepository.getAllList()
     }.flow.cachedIn(viewModelScope)
@@ -28,6 +29,7 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
         getBookMarkResult(3)
     }
 
+    // API를 통해 가져온 데이터를 BookMark 데이터로 변환하여 Room DB에 넣음
     private fun getBookMarkResult(page: Int) = addDisposable(homeRepository.getProductList(page)
         .subscribeOn(Schedulers.io())
         .subscribe({ list ->

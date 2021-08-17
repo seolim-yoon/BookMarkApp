@@ -14,5 +14,4 @@ abstract class BookMarkFragmentModule {
     @IntoMap
     @ViewModelKey(BookMarkViewModel::class) // MultiBinding. 반환되는 타입 (Map의 Key)
     internal abstract fun bindBookMarkViewModel(bookMarkViewModel: BookMarkViewModel): ViewModel
-
 }

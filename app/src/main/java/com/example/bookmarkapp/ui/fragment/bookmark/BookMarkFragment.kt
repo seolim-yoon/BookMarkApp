@@ -15,11 +15,11 @@ class BookMarkFragment: BaseFragment<FragmentBookmarkBinding, BookMarkViewModel>
 
     private val bookMarkAdapter by lazy {
         BookMarkListAdapter({ bookMark ->
+            // item click
             findNavController().navigate(BookMarkFragmentDirections.actionBookMarkFragmentToDetailFragment(bookMark))
         }, { bookMark ->
             // bookmark click
             viewModel.updateBookMark(bookMark)
-            viewModel.updateBookMarkList()
         })
     }
 

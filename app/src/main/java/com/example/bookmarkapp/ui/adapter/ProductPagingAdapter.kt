@@ -1,23 +1,22 @@
 package com.example.bookmarkapp.ui.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.bookmarkapp.R
 import com.example.bookmarkapp.data.database.entity.BookMark
-import com.example.bookmarkapp.databinding.ItemProductListBinding
-import com.example.bookmarkapp.util.TimeFormatUtils
+import com.example.bookmarkapp.databinding.ItemBookmarkListBinding
+import com.example.bookmarkapp.util.FormatUtils
 import java.util.*
 
 class ProductPagingAdapter(
-    private val bookmarkItemClick: (BookMark) -> Unit,
+    private val productItemClick: (BookMark) -> Unit,
     private val bookMarkClick: (BookMark) -> Unit
 ) : PagingDataAdapter<BookMark, ProductPagingAdapter.ProductListViewHolder>(diffUtil) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductListViewHolder
-            = ProductListViewHolder(ItemProductListBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+            = ProductListViewHolder(ItemBookmarkListBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
     override fun onBindViewHolder(holder: ProductListViewHolder, position: Int) {
         getItem(position)?.let { bookmark ->
@@ -25,25 +24,23 @@ class ProductPagingAdapter(
         }
     }
 
-    inner class ProductListViewHolder(private val binding: ItemProductListBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ProductListViewHolder(private val binding: ItemBookmarkListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(bookMark: BookMark) {
             binding.bookmark = bookMark
+            binding.tvItemTime.visibility = View.GONE
 
             itemView.setOnClickListener {
-                bookmarkItemClick(bookMark)
+                productItemClick(bookMark)
             }
 
             binding.ivItemBookmark.setOnClickListener { view ->
                 bookMark.isBookMark = !bookMark.isBookMark
-                when(bookMark.isBookMark) {
-                    true -> {
-                        bookMark.time = TimeFormatUtils.dateFormat.format(Date(System.currentTimeMillis()))
-                    }
-                }
-                Log.v("seolim", "isBookMark : " + bookMark.isBookMark)
+
+                if(bookMark.isBookMark)
+                    bookMark.time = FormatUtils.dateFormat.format(Date(System.currentTimeMillis()))
+
                 bookMarkClick(bookMark)
                 binding.invalidateAll()
-
             }
         }
     }
