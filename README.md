@@ -29,19 +29,6 @@
 #
 
 
-* 결과 화면
-홈 화면, 북마크 화면(최근 등록 순), 정렬 타입 선택 화면, 북마크 화면(평점 높은 순), 상세 화면
-
-
-<img src="https://user-images.githubusercontent.com/73940842/129687889-c76fe134-215c-4033-9d91-1f8ce1d2f44b.jpg" width="220" height="450"> <img src="https://user-images.githubusercontent.com/73940842/129687969-579d3d70-0a4a-4d06-89c1-74126608d974.jpg" width="220" height="450"> <img src="https://user-images.githubusercontent.com/73940842/129688055-dfae7768-c42d-469c-ada8-865798147fd2.jpg" width="220" height="450"> 
-
-<img src="https://user-images.githubusercontent.com/73940842/129688004-cb299c80-9b89-427e-b518-47c6ed800dd7.jpg" width="220" height="450"> <img src="https://user-images.githubusercontent.com/73940842/129688085-7f6a8628-51bf-447d-bb7f-cf678cd7e12d.jpg" width="220" height="450">
-
-
-
-#
-
-
 * 화면 구성
 1. 홈 화면 (HomeFragment) : API를 통해 데이터를 가져온 후 Room DB에 저장하고, 저장된 Room DB를 Paging을 사용하여 20개 단위로 가져온다.
     
