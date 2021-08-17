@@ -6,8 +6,10 @@ import com.example.bookmarkapp.base.BaseViewModel
 import com.example.bookmarkapp.data.database.entity.BookMark
 import com.example.bookmarkapp.data.repository.bookmark.BookMarkRepository
 import com.example.bookmarkapp.ui.model.Sort
+import com.example.bookmarkapp.util.FormatUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 import javax.inject.Inject
 
 class BookMarkViewModel @Inject constructor(private val bookMarkRepository: BookMarkRepository) : BaseViewModel() {
@@ -55,6 +57,10 @@ class BookMarkViewModel @Inject constructor(private val bookMarkRepository: Book
     // DetailFragment에서 하트 표시 클릭 시 isBookMark 상태 DB에 업데이트
     fun clickBookMark(bookMark: BookMark) {
         bookMark.isBookMark = !bookMark.isBookMark
+
+        if(bookMark.isBookMark)
+            bookMark.time = FormatUtils.dateFormat.format(Date(System.currentTimeMillis()))
+
         updateBookMark(bookMark)
     }
 

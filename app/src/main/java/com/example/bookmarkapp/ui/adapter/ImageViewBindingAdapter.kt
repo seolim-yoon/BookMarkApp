@@ -1,5 +1,6 @@
 package com.example.bookmarkapp.ui.adapter
 
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
@@ -24,5 +25,14 @@ object ImageViewBindingAdapter {
             .centerCrop()
             .timeout(2000)
             .into(ivThumbnail)
+    }
+
+    @BindingAdapter("iconImageUrl")
+    @JvmStatic
+    fun loadIconImage(ivIcon: ImageView, drawable: Drawable) {
+        Glide.with(ivIcon.context)
+            .load(drawable)
+            .centerInside()
+            .into(ivIcon)
     }
 }
