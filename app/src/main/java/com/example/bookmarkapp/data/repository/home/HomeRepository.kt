@@ -11,5 +11,7 @@ interface HomeRepository {
 
     fun getAllList(): PagingSource<Int, BookMark>
 
+    fun getCheckBookMark(): Single<List<BookMark>>
+
     fun insertBookMark(bookMarks: List<BookMark>): Completable
 }

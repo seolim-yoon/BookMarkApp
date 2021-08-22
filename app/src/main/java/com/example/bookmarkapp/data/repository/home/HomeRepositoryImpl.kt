@@ -17,5 +17,7 @@ class HomeRepositoryImpl @Inject constructor(
 
     override fun getAllList(): PagingSource<Int, BookMark> = bookMarkDao.getAllList()
 
+    override fun getCheckBookMark(): Single<List<BookMark>> = bookMarkDao.getCheckBookMark(true)
+
     override fun insertBookMark(bookMarks: List<BookMark>): Completable = bookMarkDao.insertBookMark(bookMarks)
 }

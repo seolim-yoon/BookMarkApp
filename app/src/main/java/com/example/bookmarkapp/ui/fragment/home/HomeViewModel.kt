@@ -1,6 +1,8 @@
 package com.example.bookmarkapp.ui.fragment.home
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -23,6 +25,10 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
         const val PER_PAGE: Int = 20
     }
 
+    private var _updateBookMark = MutableLiveData<BookMark>()
+    val updateBookMark: LiveData<BookMark>
+        get() = _updateBookMark
+
     init {
         getBookMarkResult(1)
         getBookMarkResult(2)
@@ -33,17 +39,34 @@ class HomeViewModel @Inject constructor(private val homeRepository: HomeReposito
     private fun getBookMarkResult(page: Int) = addDisposable(homeRepository.getProductList(page)
         .subscribeOn(Schedulers.io())
         .subscribe({ list ->
-            insertBookMark(list.data.transformBookMark())
+            getCheckBookMarkId(list.data.transformBookMark())
         }, { e ->
             Log.e("seolim", "error : " + e.message)
         })
     )
 
-    private fun insertBookMark(bookMarks: List<BookMark>) = addDisposable(homeRepository.insertBookMark(bookMarks)
+    private fun getCheckBookMarkId(list: List<BookMark>) = addDisposable(homeRepository.getCheckBookMark()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe { checkList ->
+            insertBookMark(
+                list,
+                checkList.map { it.id to it.time }.toMap()
+            )
+        }
+    )
+
+    private fun insertBookMark(bookMarks: List<BookMark>, bookMarkMap: Map<Int, String>) = addDisposable(homeRepository.insertBookMark(bookMarks)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe {
-
+            bookMarks.forEach { bookMarks ->
+                if(bookMarkMap.containsKey(bookMarks.id)) {
+                    bookMarks.isBookMark = true
+                    bookMarks.time = bookMarkMap[bookMarks.id] ?: ""
+                    _updateBookMark.value = bookMarks
+                }
+            }
         }
     )
 }

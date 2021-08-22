@@ -50,5 +50,9 @@ class HomeFragment: BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                 productAdapter.submitData(pagingData)
             }
         }
+
+        viewModel.updateBookMark.observe(viewLifecycleOwner, { bookMark ->
+            bookMarkViewModel.updateBookMark(bookMark)
+        })
     }
 }

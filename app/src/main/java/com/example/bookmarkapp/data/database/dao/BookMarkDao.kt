@@ -24,10 +24,13 @@ interface BookMarkDao {
     @Query("SELECT * FROM BookMark WHERE isBookMark LIKE :isBookMark ORDER BY rate DESC")
     fun getBookMarkByRateDesc(isBookMark: Boolean): Single<List<BookMark>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertBookMark(bookMarks: List<BookMark>): Completable
 
     @Update
     fun updateBookMark(bookMark: BookMark): Completable
+
+    @Query("SELECT * FROM BookMark WHERE isBookMark LIKE :isBookMark")
+    fun getCheckBookMark(isBookMark: Boolean): Single<List<BookMark>>
 
 }
